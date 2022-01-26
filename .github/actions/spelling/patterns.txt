@@ -1,0 +1,7 @@
+# See https://github.com/check-spelling/check-spelling/wiki/Configuration-Examples:-patterns
+
+# version suffix &lt;word&gt;v#
+[Vv]\d+(?:\b|(?=[a-zA-Z_]))
+
+# ignore long runs of a single character:
+\b([A-Za-z])\g{-1}{3,}\b
