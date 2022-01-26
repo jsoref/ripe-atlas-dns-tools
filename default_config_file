@@ -65,7 +65,7 @@ color = True
 ; do NOT colorized output (AKA "colourised output")
 no_color = False
 ;
-; add a trailing char (! or *) to abberant sites and response times
+; add a trailing char (! or *) to aberrant sites and response times
 emphasis_chars = False
 ;
 ; Do NOT show the header above the probe list
