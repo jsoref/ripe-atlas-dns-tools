@@ -56,7 +56,7 @@ ripe_atlas_current_probe_properties_url = https://ftp.ripe.net/ripe/atlas/probes
 ; character (delimiter) to split the string on (can occur in the string more than once.
 split_char = .
 ;
-; show information for probes presnt in *either* result sets, not just those present in *both* sets
+; show information for probes present in *either* result sets, not just those present in *both* sets
 all_probes = False
 ;
 ; colorize output
