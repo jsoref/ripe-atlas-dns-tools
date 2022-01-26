@@ -23,7 +23,7 @@ from datetime import datetime
 import bz2
 # needed to fetch the probe properties file from RIPE
 import urllib.request
-# These RIPE puthon modules are usually installed with pip:
+# These RIPE python modules are usually installed with pip:
 from ripe.atlas.cousteau import AtlasLatestRequest
 from ripe.atlas.cousteau import AtlasResultsRequest
 from ripe.atlas.cousteau import Probe
@@ -142,7 +142,7 @@ options_sample_dict = {
         'type': 'string'},
     'all_probes': {
         'default': False,
-        'help': 'show information for probes presnt in *either* result sets, not just those present in *both* sets',
+        'help': 'show information for probes present in *either* result sets, not just those present in *both* sets',
         'type': 'boolean'},
     'color': {
         'default': True,
@@ -154,7 +154,7 @@ options_sample_dict = {
         'type': 'boolean'},
     'emphasis_chars': {
         'default': False,
-        'help': 'add a trailing char (! or *) to abberant sites and response times',
+        'help': 'add a trailing char (! or *) to aberrant sites and response times',
         'type': 'boolean'},
     'no_header': {
         'default': False,
@@ -172,13 +172,13 @@ options_sample_dict = {
         'default': False,
         'help': 'show summary stats',
         'type': 'boolean'},
-    'dns_response_item_occurence_to_return': {
+    'dns_response_item_occurrence_to_return': {
         'default': 1,
         'help': 'Which item to return from the split-list. First element is 0. Default: 1',
         'type': 'integer'},
     'latency_diff_threshold': {
         'default': 5,
-        'help': 'the amount of time difference (ms) that is significant when comparing latencies bewtween tests. Default: 5',
+        'help': 'the amount of time difference (ms) that is significant when comparing latencies between tests. Default: 5',
         'type': 'integer'},
     'slow_threshold': {
         'default': 50,
@@ -241,7 +241,7 @@ parser.add_argument('-C', '--no_color', '--no_colour', help=options_sample_dict[
 parser.add_argument('-e', '--emphasis_chars', help=options_sample_dict['emphasis_chars']['help'], action="store_true", default=options_sample_dict['emphasis_chars']['default'])
 parser.add_argument('-f', '--config_file', help='Read (and write) the config from specified file', type=str, default=my_config_file)
 parser.add_argument('-H', '--no_header', help=options_sample_dict['no_header']['help'], action="store_true", default=options_sample_dict['no_header']['default'])
-parser.add_argument('-i', '--dns_response_item_occurence_to_return', help=options_sample_dict['dns_response_item_occurence_to_return']['help'], type=int, default=options_sample_dict['dns_response_item_occurence_to_return']['default'])
+parser.add_argument('-i', '--dns_response_item_occurrence_to_return', help=options_sample_dict['dns_response_item_occurrence_to_return']['help'], type=int, default=options_sample_dict['dns_response_item_occurrence_to_return']['default'])
 parser.add_argument('-l', '--latency_diff_threshold', help=options_sample_dict['latency_diff_threshold']['help'], type=int, default=options_sample_dict['latency_diff_threshold']['default'])
 parser.add_argument('--log_level', help=options_sample_dict['log_level']['help'], type=str, choices=valid_log_levels, default=options_sample_dict['log_level']['default'])
 parser.add_argument('--oldest_atlas_result_datetime', help=options_sample_dict['oldest_atlas_result_datetime']['help'], type=str, default=options_sample_dict['oldest_atlas_result_datetime']['default'])
@@ -392,7 +392,7 @@ def is_valid_unixtime(_possible_unixtime):
         return False
 
 ##########
-# Try a few formats to convert the datetime string they've supplied into unxitime
+# Try a few formats to convert the datetime string they've supplied into unixtime
 def user_datetime_to_valid_unixtime(user_dt_string):
     accepted_datetime_formats = [ '%Y%m%d', '%Y%m%d%H%M',
                                   '%Y%m%d_%H%M', '%Y%m%d_%H:%M',
@@ -416,12 +416,12 @@ def user_datetime_to_valid_unixtime(user_dt_string):
         except ValueError:
             ...
     # If fall out the bottom of the (above) for loop, then we do not have a valid time
-    logger.critical('Cannot validate "' + user_dt_string + '" as a date-time respresentation\n')
+    logger.critical('Cannot validate "' + user_dt_string + '" as a date-time representation\n')
     exit(2)
 
 # A list that might contain the user-supplied time period durations
 # durations = [args[0].duration1, args[0].duration2 ]
-# A list that might contain the unixtime respresentation of the user-supplied start times
+# A list that might contain the unixtime representation of the user-supplied start times
 unixtimes = [0, 0]
 
 #####
@@ -610,7 +610,7 @@ def process_request(_data_source, _results_set_id, _unixtime):
             sys.exit(12)
 
     # Variables that start with a m_ are specific to measurements.
-    # All of the m_* dictionaries are initalized at the top of the script.
+    # All of the m_* dictionaries are initialized at the top of the script.
     # Here, we are initializing the structure we will be writing into for this _results_set_id.
     # (results set identifier)
     m_ip_version[_results_set_id] = 0
@@ -625,7 +625,7 @@ def process_request(_data_source, _results_set_id, _unixtime):
     #
     m_response_times[_results_set_id] = []
     m_timestamps[_results_set_id] = []
-    # The list of seen probe IDs for this measurentment-result-set
+    # The list of seen probe IDs for this measurement-result-set
     m_seen_probe_ids[_results_set_id] = []
 
 
@@ -697,8 +697,8 @@ def process_request(_data_source, _results_set_id, _unixtime):
                     logger.debug('%s\n' % (dns_server_fqdn))
                 else:
                     split_result = dns_server_fqdn.split(args[0].split_char)
-                    if len(split_result) > args[0].dns_response_item_occurence_to_return:
-                        pm_dns_server_substring[results_and_probes_id] = split_result[args[0].dns_response_item_occurence_to_return]
+                    if len(split_result) > args[0].dns_response_item_occurrence_to_return:
+                        pm_dns_server_substring[results_and_probes_id] = split_result[args[0].dns_response_item_occurrence_to_return]
                     else:
                         pm_dns_server_substring[results_and_probes_id] = dns_server_fqdn
             except IndexError:
@@ -728,13 +728,13 @@ def process_request(_data_source, _results_set_id, _unixtime):
 #####
 # A) Why use a local cache?
 # AFAICT, one can only request info about one probe at a time from the
-# RIPE Atlas API, and that can be a slow, latentcy-ful process.
+# RIPE Atlas API, and that can be a slow, latency-ful process.
 #
 # B) Why are there two cache files?
 #
 # RIPE publishes a (daily?) updated version of all the probe data in one
 # bz2-compressed file via HTTPS or FTP, so we can download that
-# perdiodically.  The probe info is formatted as a 1-line JSON blob, that
+# periodically.  The probe info is formatted as a 1-line JSON blob, that
 # this script reads in and converts into a python dictionary.
 #
 # However, at the time of this writing (Apr. 2021) this file from RIPE
@@ -885,7 +885,7 @@ def load_probe_properties(probe_ids, ppcf):
 # Data loading and summary stats reporting loop ...
 while results_set_id <= last_results_set_id:
 #for t in data_sources:
-    # m will receive the measurment ID for the processed data source
+    # m will receive the measurement ID for the processed data source
     logger.debug('data_source: %s  results_set_id: %i  unixtime: %i\n' % (data_sources[results_set_id], results_set_id, unixtimes[results_set_id]))
     m = process_request(data_sources[results_set_id], results_set_id, unixtimes[results_set_id])
     measurement_ids.append(m)
@@ -1060,7 +1060,7 @@ if not args[0].do_not_list_probes:
             fmt_string_a = 'f_sites_fmt_chars:s}{f_' + pp
             fmt_string_b = '15s}{f_sites_emph_char:s}{f_fmt_clear:s'
         else:
-            logger.critical('Unknown probe paramter: %s' % pp)
+            logger.critical('Unknown probe parameter: %s' % pp)
         probe_detail_line_format_string += '{' + fmt_string_a + ':' + fmt_string_b + '} '
     #
     probe_detail_line_format_string += '{f_fmt_clear:s}'
