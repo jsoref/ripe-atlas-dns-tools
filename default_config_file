@@ -83,7 +83,7 @@ print_summary_stats = False
 ; Which item to return from the split-list. First element is 0.
 dns_response_item_occurence_to_return = 1
 ;
-; the amount of time difference (ms) that is significant when comparing latencies bewtween tests
+; the amount of time difference (ms) that is significant when comparing latencies between tests
 latency_diff_threshold = 5
 ;
 ; Response times (ms) larger thatn this trigger color highlighting.
