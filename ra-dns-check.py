@@ -172,7 +172,7 @@ options_sample_dict = {
         'default': False,
         'help': 'show summary stats',
         'type': 'boolean'},
-    'dns_response_item_occurence_to_return': {
+    'dns_response_item_occurrence_to_return': {
         'default': 1,
         'help': 'Which item to return from the split-list. First element is 0. Default: 1',
         'type': 'integer'},
@@ -241,7 +241,7 @@ parser.add_argument('-C', '--no_color', '--no_colour', help=options_sample_dict[
 parser.add_argument('-e', '--emphasis_chars', help=options_sample_dict['emphasis_chars']['help'], action="store_true", default=options_sample_dict['emphasis_chars']['default'])
 parser.add_argument('-f', '--config_file', help='Read (and write) the config from specified file', type=str, default=my_config_file)
 parser.add_argument('-H', '--no_header', help=options_sample_dict['no_header']['help'], action="store_true", default=options_sample_dict['no_header']['default'])
-parser.add_argument('-i', '--dns_response_item_occurence_to_return', help=options_sample_dict['dns_response_item_occurence_to_return']['help'], type=int, default=options_sample_dict['dns_response_item_occurence_to_return']['default'])
+parser.add_argument('-i', '--dns_response_item_occurrence_to_return', help=options_sample_dict['dns_response_item_occurrence_to_return']['help'], type=int, default=options_sample_dict['dns_response_item_occurrence_to_return']['default'])
 parser.add_argument('-l', '--latency_diff_threshold', help=options_sample_dict['latency_diff_threshold']['help'], type=int, default=options_sample_dict['latency_diff_threshold']['default'])
 parser.add_argument('--log_level', help=options_sample_dict['log_level']['help'], type=str, choices=valid_log_levels, default=options_sample_dict['log_level']['default'])
 parser.add_argument('--oldest_atlas_result_datetime', help=options_sample_dict['oldest_atlas_result_datetime']['help'], type=str, default=options_sample_dict['oldest_atlas_result_datetime']['default'])
@@ -697,8 +697,8 @@ def process_request(_data_source, _results_set_id, _unixtime):
                     logger.debug('%s\n' % (dns_server_fqdn))
                 else:
                     split_result = dns_server_fqdn.split(args[0].split_char)
-                    if len(split_result) > args[0].dns_response_item_occurence_to_return:
-                        pm_dns_server_substring[results_and_probes_id] = split_result[args[0].dns_response_item_occurence_to_return]
+                    if len(split_result) > args[0].dns_response_item_occurrence_to_return:
+                        pm_dns_server_substring[results_and_probes_id] = split_result[args[0].dns_response_item_occurrence_to_return]
                     else:
                         pm_dns_server_substring[results_and_probes_id] = dns_server_fqdn
             except IndexError:
